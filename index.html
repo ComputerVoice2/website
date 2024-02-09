@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text-to-Speech Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, blue, gold);
+            color: white;
+            padding: 20px;
+        }
+        #speakButton {
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web-based Text-to-Speech Application</h1>
+    <textarea id="textArea" rows="10" cols="50"></textarea>
+    <button id="speakButton">Speak</button>
+
+    <script>
+        document.getElementById('speakButton').addEventListener('click', function() {
+            var text = document.getElementById('textArea').value;
+            var msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        });
+    </script>
+</body>
+</html>
