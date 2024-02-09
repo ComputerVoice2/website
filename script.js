@@ -1,71 +1,58 @@
-// script.js
-// Get the DOM elements
-const textInput = document.getElementById("text-input");
-const voiceSelect = document.getElementById("voice-select");
-const speakButton = document.getElementById("speak-button");
-const stopButton = document.getElementById("stop-button");
+class TextToSpeech {
+  constructor() {
+    this.textInput = document.getElementById("text-input");
+    this.voiceSelect = document.getElementById("voice-select");
+    this.speakButton = document.getElementById("speak-button");
+    this.stopButton = document.getElementById("stop-button");
+    this.statusMessage = document.getElementById("status-message");
 
-// Initialize the speech synthesis API
-const synth = window.speechSynthesis;
+    this.synth = window.speechSynthesis;
+    this.voices = [];
 
-// Create an array to store the available voices
-let voices = [];
+    this.populateVoiceList();
+    if (this.synth) {
+      this.synth.addEventListener("voiceschanged", () => {
+        this.populateVoiceList();
+      });
+    }
 
-// A function to populate the voice select element
-const populateVoiceList = () => {
-  // Get the voices from the speech synthesis API
-  voices = synth.getVoices();
-
-  // Loop through the voices and create an option element for each one
-  for (let i = 0; i < voices.length; i++) {
-    // Create a new option element
-    let option = document.createElement("option");
-    // Set the value and text of the option element
-    option.value = voices[i].name;
-    option.textContent = `${voices[i].name} (${voices[i].lang})`;
-    // Append the option element to the voice select element
-    voiceSelect.appendChild(option);
+    this.speakButton.addEventListener("click", () => this.speak());
+    this.stopButton.addEventListener("click", () => this.stop());
   }
-};
 
-// A function to speak the text input
-const speak = () => {
-  // Check if the speech synthesis API is speaking
-  if (synth.speaking) {
-    // If yes, alert the user and return
-    alert("Speech synthesis is already speaking.");
-    return;
+  populateVoiceList() {
+    if (this.synth) {
+      this.voices = this.synth.getVoices();
+      for (let i = 0; i < this.voices.length; i++) {
+        let option = document.createElement("option");
+        option.value = this.voices[i].name;
+        option.textContent = `${this.voices[i].name} (${this.voices[i].lang})`;
+        this.voiceSelect.appendChild(option);
+      }
+    } else {
+      console.error("Speech synthesis API not available");
+    }
   }
-  // Check if the text input is not empty
-  if (textInput.value !== "") {
-    // If yes, create a new speech synthesis utterance
-    let utterance = new SpeechSynthesisUtterance(textInput.value);
-    // Set the voice of the utterance to the selected voice
-    utterance.voice = voices.find(
-      (voice) => voice.name === voiceSelect.value
-    );
-    // Speak the utterance
-    synth.speak(utterance);
+
+  speak() {
+    if (this.synth.speaking) {
+      this.statusMessage.textContent = "Speech synthesis is already speaking.";
+      return;
+    }
+    if (this.textInput.value !== "") {
+      let utterance = new SpeechSynthesisUtterance(this.textInput.value);
+      utterance.voice = this.voices.find(
+        (voice) => voice.name === this.voiceSelect.value
+      );
+      this.synth.speak(utterance);
+    }
   }
-};
 
-// A function to stop the speech synthesis API
-const stop = () => {
-  // Check if the speech synthesis API is speaking
-  if (synth.speaking) {
-    // If yes, cancel the speech
-    synth.cancel();
+  stop() {
+    if (this.synth.speaking) {
+      this.synth.cancel();
+    }
   }
-};
+}
 
-// Populate the voice list when the page loads
-window.addEventListener("load", populateVoiceList);
-
-// Populate the voice list when the voices change
-synth.addEventListener("voiceschanged", populateVoiceList);
-
-// Speak the text input when the speak button is clicked
-speakButton.addEventListener("click", speak);
-
-// Stop the speech synthesis API when the stop button is clicked
-stopButton.addEventListener("click", stop);
+window.addEventListener("load", () => new TextToSpeech());
