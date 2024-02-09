@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Text-to-Speech Application</title>
+    <title>Advanced Text-to-Speech Application</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,15 +21,52 @@
     </style>
 </head>
 <body>
-    <h1>Web-based Text-to-Speech Application</h1>
-    <textarea id="textArea" rows="10" cols="50"></textarea>
+    <h1>Advanced Text-to-Speech Application</h1>
+    <textarea id="textArea" rows="10" cols="50"></textarea><br>
+    <label for="voice">Voice:</label>
+    <select id="voice"></select><br>
+    <label for="volume">Volume:</label>
+    <input id="volume" type="range" min="0" max="1" step="0.1" value="1"><br>
+    <label for="rate">Rate:</label>
+    <input id="rate" type="range" min="0.5" max="2" step="0.1" value="1"><br>
+    <label for="pitch">Pitch:</label>
+    <input id="pitch" type="range" min="0" max="2" step="0.1" value="1"><br>
     <button id="speakButton">Speak</button>
 
     <script>
+        var synth = window.speechSynthesis;
+        var voices = [];
+        var voiceSelect = document.getElementById('voice');
+
+        function populateVoiceList() {
+            voices = synth.getVoices();
+            for(var i = 0; i < voices.length; i++) {
+                var option = document.createElement('option');
+                option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+                option.setAttribute('data-lang', voices[i].lang);
+                option.setAttribute('data-name', voices[i].name);
+                voiceSelect.appendChild(option);
+            }
+        }
+
+        populateVoiceList();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
         document.getElementById('speakButton').addEventListener('click', function() {
             var text = document.getElementById('textArea').value;
             var msg = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(msg);
+            var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+            for(var i = 0; i < voices.length; i++) {
+                if(voices[i].name === selectedOption) {
+                    msg.voice = voices[i];
+                }
+            }
+            msg.volume = document.getElementById('volume').value;
+            msg.rate = document.getElementById('rate').value;
+            msg.pitch = document.getElementById('pitch').value;
+            synth.speak(msg);
         });
     </script>
 </body>
