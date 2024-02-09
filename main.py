@@ -2,6 +2,9 @@ from flask import Flask, request, send_file
 from gtts import gTTS
 import os
 
+pip install flask gTTS
+
+
 app = Flask(__name__)
 
 @app.route('/convert')
