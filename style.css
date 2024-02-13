@@ -1,8 +1,9 @@
-// style.css
-* {
+/* style.css */
+{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', Arial, sans-serif; /* Use a modern, sans-serif font */
 }
 
 .container {
@@ -10,16 +11,18 @@
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ccc;
-  font-family: Arial, sans-serif;
+  background-color: #f5f5f5; /* Add a light background color */
 }
 
 h1 {
   text-align: center;
   color: #333;
+  font-weight: 300; /* Use a lighter font weight for a modern look */
 }
 
 p {
   margin-bottom: 10px;
+  line-height: 1.6; /* Improve readability */
 }
 
 textarea {
@@ -29,6 +32,7 @@ textarea {
   border: 1px solid #ccc;
   padding: 10px;
   font-size: 16px;
+  border-radius: 4px; /* Add rounded corners */
 }
 
 select {
@@ -37,24 +41,27 @@ select {
   border: 1px solid #ccc;
   padding: 10px;
   font-size: 16px;
+  border-radius: 4px; /* Add rounded corners */
 }
 
 button {
   width: 49%;
   height: 40px;
   border: none;
-  background-color: #333;
+  background-color: #007BFF; /* Use a vibrant color */
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 4px; /* Add rounded corners */
+  transition: background-color 0.3s ease; /* Add a transition for a smoother hover effect */
 }
 
 button:hover {
-  background-color: #444;
+  background-color: #0056b3;
 }
 
 button:active {
-  background-color: #555;
+  background-color: #003d7a;
 }
 
 button:focus {
