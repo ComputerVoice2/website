@@ -6,8 +6,9 @@ body {
     justify-content: center;
     background: black;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Updated font family */
     color: white;
+    line-height: 1.6; /* Added line height for better readability */
 }
 
 #video-background {
@@ -31,6 +32,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.5);
+    font-size: 1rem; /* Added font size for better readability */
 }
 
 #userInput {
@@ -39,6 +41,7 @@ body {
     border: none;
     border-radius: 5px;
     margin-top: 10px;
+    font-size: 1rem; /* Added font size for consistency */
 }
 
 button {
@@ -49,6 +52,8 @@ button {
     color: white;
     cursor: pointer;
     margin-left: 10px;
+    font-size: 1rem; /* Added font size for consistency */
+    transition: background 0.3s ease; /* Added transition for smoother hover effect */
 }
 
 button:hover {
