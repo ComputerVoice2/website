@@ -1,38 +1,19 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <style>
-        #chatbox {
-            width: 300px;
-            height: 400px;
-            border: 1px solid black;
-            overflow: auto;
-        }
-        #userInput {
-            width: 300px;
-        }
-    </style>
+  <title>Text to Voice Website</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="chatbox"></div>
-    <input id="userInput" type="text" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-
-    <script>
-        var chatbox = document.getElementById('chatbox');
-        var userInput = document.getElementById('userInput');
-
-        function sendMessage() {
-            var message = userInput.value;
-            chatbox.innerHTML += 'User: ' + message + '<br>';
-
-            // This is where you would add your AI model
-            var response = 'Hello, I am your chatbot!';
-            chatbox.innerHTML += 'Chatbot: ' + response + '<br>';
-
-            userInput.value = '';
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
-    </script>
+  <div class="container">
+    <h1>Text to Voice Website</h1>
+    <p>Enter some text and choose a voice to hear it spoken aloud.</p>
+    <textarea id="text-input" placeholder="Type something here..."></textarea>
+    <select id="voice-select">
+      <option value="">Select a voice</option>
+    </select>
+    <button id="speak-button">Speak</button>
+    <button id="stop-button">Stop</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
