@@ -1,24 +1,17 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    background: url('path-to-your-video.mp4') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-h1 {
-    text-align: center;
-}
-
-textarea {
-    width: 100%;
+#text {
+    width: 300px;
     height: 200px;
-    margin-bottom: 20px;
 }
 
-select, input[type="range"], button {
+#speak {
     display: block;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-p {
-    color: red;
+    margin-top: 10px;
 }
