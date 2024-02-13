@@ -58,6 +58,20 @@ const stop = () => {
   }
 };
 
+// A function to respond to the user input with a chatbot response
+const respond = () => {
+  // Define a simple chatbot response
+  let response = "Hello, I'm your chatbot. You said: " + textInput.value;
+  // Create a new speech synthesis utterance for the response
+  let utterance = new SpeechSynthesisUtterance(response);
+  // Set the voice of the utterance to the selected voice
+  utterance.voice = voices.find(
+    (voice) => voice.name === voiceSelect.value
+  );
+  // Speak the utterance
+  synth.speak(utterance);
+};
+
 // Populate the voice list when the page loads
 window.addEventListener("load", populateVoiceList);
 
@@ -69,3 +83,6 @@ speakButton.addEventListener("click", speak);
 
 // Stop the speech synthesis API when the stop button is clicked
 stopButton.addEventListener("click", stop);
+
+// Respond to the user input when the text input changes
+textInput.addEventListener("input", respond);
